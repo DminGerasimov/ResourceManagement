@@ -15,14 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
+from rest_framework import routers
 from usercloud import views
 
 
-router = DefaultRouter()
-router.register(r'user', views.UserView, basename='user')
+# router = routers.SimpleRouter()
+# router.register(r'us', views.UserView, basename='user')
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include(router.urls)),
+    path('v1/user/', views.UserView.as_view({'get': 'retrieve'})),
+    path('v1/auth/register/', views.UserRegisterView.as_view({'post': 'create'})),
 ]
