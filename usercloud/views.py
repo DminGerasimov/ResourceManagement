@@ -39,7 +39,7 @@ class UserLogin(viewsets.ViewSet):
 
     def retrieve(self, request):
         login, password = request.data['login', 'password']
-        queryset = User.objects.filter(login=login, password=password)
+        queryset = User.objects.filter(login=login, password=password).values('id')
         if len(queryset):
             userid = {'id': queryset[0]['id']}
             return Response(userid)
