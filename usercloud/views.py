@@ -1,9 +1,10 @@
 from usercloud.models import User
-from usercloud.serializers import UserSerializer
+from usercloud.serializers import UserSerializer, UserRegister
 from rest_framework import viewsets
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import status
+from datetime import date, datetime
 
 
 class UserView(viewsets.ViewSet):
@@ -22,29 +23,24 @@ class UserView(viewsets.ViewSet):
 
 class UserRegisterView(viewsets.ViewSet):
 
-    serializer_class = UserSerializer
+    serializer_class = UserRegister
     
     def create(self, request):
-        serializer = UserSerializer(data=request.data)
+        serializer = UserRegister(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response({'id': serializer.data['id']}, status=status.HTTP_201_CREATED)
-        content = {"code 400": "bad request"} #=serializer.errors
+            birth = serializer.validated_data['birth']
+            if (int((date.today() - birth).days / 365.2425) > 18):
+                serializer.save()
+                return Response({'id': serializer.data['id']}, status=status.HTTP_201_CREATED)
+        content = {"code 400": "bad request or 18+ or user already exist"} #=serializer.errors
         return Response(content, status=status.HTTP_400_BAD_REQUEST)
-
-    def dataValidating(serializer.data):
-        if re.fullmatch(r'\d{11}',serializer.data['phone']):
-            return True
-
-        pass
-
-        # int((date.today() - date(1977,10,6)).days / 365.2425)
 
 
 class UserLogin(viewsets.ViewSet):
 
     def retrieve(self, request):
-        login, password = request.data['login', 'password']
+        login = request.data['login']
+        password = request.data['password']
         queryset = User.objects.filter(login=login, password=password).values('id')
         if len(queryset):
             userid = {'id': queryset[0]['id']}
