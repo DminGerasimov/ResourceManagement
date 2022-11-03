@@ -14,6 +14,7 @@
 cd ~
 git clone https://github.com/DminGerasimov/ResourceManagement
 cd ResourceManagement
+chmod +x ./entrypoint.sh
 sudo docker-compose up -d -- build
 ```
 
