@@ -31,3 +31,9 @@ class UserRegisterView(viewsets.ViewSet):
             return Response({'id': serializer.data['id']}, status=status.HTTP_201_CREATED)
         content = {"code 400": "bad request"} #=serializer.errors
         return Response(content, status=status.HTTP_400_BAD_REQUEST)
+
+    def dataValidating(serializer.data):
+        if re.fullmatch(r'\d{11}',serializer.data['phone']):
+            return True
+
+        pass
