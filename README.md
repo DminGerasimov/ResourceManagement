@@ -15,7 +15,7 @@ cd ~
 git clone https://github.com/DminGerasimov/ResourceManagement
 cd ResourceManagement
 chmod +x ./entrypoint.sh
-sudo docker-compose up -d -- build
+sudo docker compose up -d
 ```
 
 После запуска контейнеров, сервис доступен по IP адресу выше указанной 
