@@ -7,7 +7,7 @@ services:
     volumes:
       - ./:/usr/src/app/
     ports:
-      - 8080:8080
+      - 8000:8000
     env_file:
       - ./.env.dev
     links:
@@ -15,7 +15,7 @@ services:
 
   db:
     image:
-      postgres:14.5-alpine
+      postgres:15.0-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
