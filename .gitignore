@@ -8,6 +8,7 @@ __pycache__/
 PowerShell.lnk
 sublimeproject.sublime-workspace
 rm.sublime*
+.idea/
 
 # C extensions
 *.so

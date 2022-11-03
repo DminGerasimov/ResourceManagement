@@ -25,4 +25,5 @@ from usercloud import views
 urlpatterns = [
     path('v1/user/', views.UserView.as_view({'get': 'retrieve'})),
     path('v1/auth/register/', views.UserRegisterView.as_view({'post': 'create'})),
+    path('v1/auth/login/', views.UserLogin.as_view({'post': 'retrieve'})),
 ]
